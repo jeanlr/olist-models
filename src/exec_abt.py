@@ -2,11 +2,6 @@ import sqlite3
 import os
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--date", '-d', help='Data referência de safra. Formato YYYY-MM-DD', default='2017-04-01')
-
-args = parser.parse_args()
-date = args.date
 
 # DATA_DIR aponta para a pasta src
 DATA_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -23,23 +18,20 @@ def import_query(path, **kwargs):
 def connect_db():
     return sqlite3.connect(DB_PATH)
 
-# Caminho para o arquivo book_sellers.sql (assumindo que está na mesma pasta src)
-query_path = os.path.join(DATA_DIR, 'book_sellers.sql')
-query = import_query(query_path)
-query = query.format(date=date)  
+query = import_query(os.path.join(DATA_DIR, 'create_abt.sql'))
 
 con = connect_db()
 cursor = con.cursor()
 
 try:
     print("Tentando deletar a tabela...")
-    base_query = 'CREATE TABLE tb_book_sellers as\n {query}'
+    base_query = 'CREATE TABLE tb_abt as\n {query}'
     cursor.execute(base_query.format(query=query))
 
 except Exception as e:
     print(f"Erro ao criar tabela: {e}\n")
     print("Tentando inserir dados na tabela...\n")
-    base_query = 'INSERT INTO tb_book_sellers \n {query}'
+    base_query = 'INSERT INTO tb_abt \n {query}'
     cursor.execute(base_query.format(query=query))
     print("Dados inseridos.")
 
