@@ -5,6 +5,14 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "category-encoders>=2.8.1",
+    "ipykernel>=7.0.1",
+    "lightgbm>=4.6.0",
+    "mlflow[lightgbm]>=3.5.1",
+    "optuna>=4.5.0",
     "pandas>=2.3.3",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "shap>=0.49.1",
     "sqlalchemy>=2.0.44",
 ]
