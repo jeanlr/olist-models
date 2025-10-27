@@ -12,3 +12,8 @@ wheels/
 data
 
 teste.sql
+
+mlartifacts
+mlruns
+
+modelo.db
